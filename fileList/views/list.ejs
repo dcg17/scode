@@ -1,0 +1,51 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="http://www.chartjs.org/dist/2.7.0/Chart.bundle.js"></script>
+    <title>Home API</title>
+    <style>
+    	a { color: white; }
+    	.fa-tv { font-size: 4em; color: #000;}
+    	.fa-film { font-size: 4em; color: #000;}
+    </style>
+</head>
+<body>
+
+<main role="main" class="container">
+      <div class="starter-template">
+
+		<h1>Files</h1>
+
+
+		
+			<% if(allFiles.length == 0) { %>
+				<div class="alert alert-warning alert-dismissible show">
+					<h2>No files found</h2>
+				</div>
+			<% }
+
+			for(var i=0; i<allFiles.length; i++) { %>
+				<div class="row">
+					<div class="col-sm-9"><h2><%= allFiles[i].split("/")[allFiles[i].split("/").length-1] %></h2> </div>
+					<div class="col-sm-3">
+						<a href="/tv/<%=i%>"><button type="button" class="btn btn-primary btn-block">TV</button></a>
+						<a href="/tv-usb/<%=i%>"><button type="button" class="btn btn-primary btn-block">TV USB</button></a>
+						<a href="/movies/<%=i%>"><button type="button" class="btn btn-warning btn-block">MOVIES</button></a>
+						<a href="/movies-usb/<%=i%>"><button type="button" class="btn btn-warning btn-block">MOVIES USB</button></a>
+						<a href="/delete/<%=i%>"><button type="button" class="btn btn-danger btn-block">DELETE</button></a>
+					</div>
+				</div>
+			<% } %>
+
+		<h2>Plex Reload Options</h2>
+		<a href="http://raspberrypi.lan:32400/library/sections/1/refresh?X-Plex-Token=5XuNLxDEV5hWnkLDCKfx"><i class="fas fa-tv"></i></a>
+		<a href="http://raspberrypi.lan:32400/library/sections/2/refresh?X-Plex-Token=5XuNLxDEV5hWnkLDCKfx"><i class="fas fa-film fa-w-16 fa-3x"></i></i></a>
+
+      </div>
+</main>
+
+</body>
+</html>
