@@ -6,8 +6,8 @@ var glob = require( 'glob' );
 
 var allFiles = [];
 var fileExtensions = "{mkv,avi,mp4}";
-var downloadFolderList = ["/Users/davidgil/Development/FileList/examples/*",
-						  "/Users/davidgil/Development/FileList/examples/*/*"];
+var downloadFolderList = ["/home/pi/folder1/*",
+						  "/home/pi/folder1/*/*"];
 
 var server = app.listen(8080, function () {
    var host = server.address().address
@@ -29,34 +29,38 @@ function moveFile(fileFrom, fileTo, fileName) {
 
 
 app.get('/tv/:id', function (req, res) {
-	var dir = "~/plexmedia/tv/"
+	var dir = "/home/pi/plex/TVFOLDER/"
 	var id = req.params.id;
 	moveFile(allFiles[id], dir, allFiles[id].split("/")[allFiles[id].split("/").length-1])
+	res.render("redirect.ejs")
 });
 
 app.get('/tv-usb/:id', function (req, res) {
-	var dir = "/media/pi/5A54-2EB816/tv/"
+	var dir = "/media/pi/USB/tv"
 	var id = req.params.id;
 	moveFile(allFiles[id], dir, allFiles[id].split("/")[allFiles[id].split("/").length-1])
+	res.render("redirect.ejs")
 });
 
 app.get('/movies/:id', function (req, res) {
-	var dir = "~/plexmedia/movies/"
+	var dir = "/home/pi/plex/MOVIEFOLDER/"
 	var id = req.params.id;
 	moveFile(allFiles[id], dir, allFiles[id].split("/")[allFiles[id].split("/").length-1])
+	res.render("redirect.ejs")
 });
 
 app.get('/movies-usb/:id', function (req, res) {
-	var dir = "/media/pi/5A54-2EB816/movies/"
+	var dir = "/media/pi/USB/movies/"
 	var id = req.params.id;
 	moveFile(allFiles[id], dir, allFiles[id].split("/")[allFiles[id].split("/").length-1])
+	res.render("redirect.ejs")
 });
 
 app.get('/delete/:id', function (req, res) {
 	var id = req.params.id;
-	console.log(allFiles[id])
 	fs.unlink(allFiles[id])
-	});
+	res.render("redirect.ejs")
+});
 
 app.get('/', function (req, res) {
 	checkFolders();
